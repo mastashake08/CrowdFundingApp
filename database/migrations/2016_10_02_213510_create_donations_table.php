@@ -7,7 +7,8 @@ use Illuminate\Database\Migrations\Migration;
 class CreateDonationsTable extends Migration
 {
     /**
-     * Run the migrations.
+     * Run the migrations.            $table->softDeletes();
+
      *
      * @return void
      */
@@ -15,6 +16,9 @@ class CreateDonationsTable extends Migration
     {
         Schema::create('donations', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('campaign_id')->unsigned();
+            $table->foreign('campaign_id')->references('id')->on('campaigns')->onDelete('cascade');
+            $table->string('charge_id');
             $table->timestamps();
         });
     }

@@ -15,7 +15,16 @@ class CreateCampaignsTable extends Migration
     {
         Schema::create('campaigns', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('name');
+            $table->longText('description');
+            $table->string('youtube_url');
+            $table->decimal('amount', 10,2);
+            $table->string('slug');
+            $table->integer('days')->default(1);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
